@@ -2,7 +2,8 @@
 name: workflow
 on:
   push:
-  workflow_dispatch:jobs:
+  workflow_dispatch:
+  jobs:
   job:
     runs-on: ubuntu-latest
     timeout-minutes: 5
