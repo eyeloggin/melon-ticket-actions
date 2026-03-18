@@ -7,24 +7,21 @@ on:
 jobs:
   job:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v1
       
       - name: Prepare
         run: npm ci
         
-      - name: Lint
-        uses: mooyoul/tslint-actions@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: '*.ts'
-          
       - name: Build
         run: npm run build
         
-      - name: Publish
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: npx semantic-release
+      - name: Run Melon Bot
+        run: npm start
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          MELON_USER_ID: ${{ secrets.MELON_USER_ID }}
+          MELON_USER_PASSWORD: ${{ secrets.MELON_USER_PASSWORD }}
+          PERFORMANCE_ID: ${{ secrets.PERFORMANCE_ID }}
+          PLAY_DATE: ${{ secrets.PLAY_DATE }}
+          TICKET_COUNT: ${{ secrets.TICKET_COUNT }}
