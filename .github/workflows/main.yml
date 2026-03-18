@@ -1,27 +1,20 @@
-name: workflow
+name: Melon Ticket Notifier
 
 on:
   push:
-  workflow_dispatch:
+  workflow_dispatch: # 수동 버튼 생성
 
 jobs:
-  job:
+  check-ticket:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v1
-      
-      - name: Prepare
-        run: npm ci
-        
-      - name: Build
-        run: npm run build
-        
-      - name: Run Melon Bot
-        run: node dist/index.js
-        env:
-          MELON_USER_ID: ${{ secrets.MELON_USER_ID }}
-          MELON_USER_PASSWORD: ${{ secrets.MELON_USER_PASSWORD }}
-          PERFORMANCE_ID: ${{ secrets.PERFORMANCE_ID }}
-          PLAY_DATE: ${{ secrets.PLAY_DATE }}
-          TICKET_COUNT: ${{ secrets.TICKET_COUNT }}
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run Melon Notifier
+        uses: ./  # 현재 폴더에 있는 action.yml을 실행해라!
+        with:
+          product-id: ${{ secrets.PERFORMANCE_ID }}
+          schedule-id: ${{ secrets.SCHEDULE_ID }} # Secrets에 추가 필요
+          seat-id: ${{ secrets.SEAT_ID }}       # Secrets에 추가 필요
+          slack-incoming-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }} # 슬랙 알림 주소
