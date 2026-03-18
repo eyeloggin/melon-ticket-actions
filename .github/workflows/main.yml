@@ -1,20 +1,7 @@
-name: Melon Ticket Notifier
-
-on:
-  push:
-  workflow_dispatch: # 수동 버튼 생성
-
-jobs:
-  check-ticket:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Run Melon Notifier
-        uses: ./  # 현재 폴더에 있는 action.yml을 실행해라!
+- name: Run Melon Radar
+        uses: ./
         with:
           product-id: ${{ secrets.PERFORMANCE_ID }}
-          schedule-id: ${{ secrets.SCHEDULE_ID }} # Secrets에 추가 필요
-          seat-id: ${{ secrets.SEAT_ID }}       # Secrets에 추가 필요
-          slack-incoming-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }} # 슬랙 알림 주소
+          schedule-id: ${{ secrets.SCHEDULE_ID }}
+          telegram-bot-token: ${{ secrets.TELEGRAM_TOKEN }}
+          telegram-chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
