@@ -18,7 +18,7 @@ jobs:
         run: npm run build
         
       - name: Run Melon Bot
-        run: npm start
+        run: node dist/index.js
         env:
           MELON_USER_ID: ${{ secrets.MELON_USER_ID }}
           MELON_USER_PASSWORD: ${{ secrets.MELON_USER_PASSWORD }}
